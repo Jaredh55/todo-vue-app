@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My App</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="index.js" defer></script>
+</head>
+<body>
+  <div id="vue-app">
+
+    <router-view></router-view>
+
+  </div>
+</body>
+</html>
+
+<template id="home-page">
+  <div class="vue-component">
+
+<!--     <h1> To Do List: </h1>
+    <h2>{{ task1 }}</h2>
+    <h2>{{ task2 }}</h2>
+    <h2>{{ task3 }}</h2>
+    <input v-model="task3"> -->
+<div>
+    <h1> Tasks: </h1>
+    <ul>
+      <li v-for="task in tasks" v-on:click="markComplete(task)" v-if="isPositive()"> {{ task.text }}: {{ task.complete }}</li>
+    </ul>
+</div>
+<div>
+  Text: <input v-model="newTask.text">
+    <button v-on:click="addTask()"> Add Task</button>
+</div>
+
+
+
+
+  </div>
+</template>
