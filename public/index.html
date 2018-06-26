@@ -7,9 +7,13 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
+  <link rel="stylesheet" href="main.css">
+
+
 </head>
 <body>
   <div id="vue-app">
+
 
     <router-view></router-view>
 
@@ -27,10 +31,34 @@
     <input v-model="task3"> -->
 <div>
     <h1> Tasks: </h1>
-    <ul>
-      <li v-for="task in tasks" v-on:click="markComplete(task)" v-if="isPositive()"> {{ task.text }}: {{ task.complete }}</li>
-    </ul>
+   
+        <div>
+          Search Text<input v-model="textFilter" list="texts">
+          <datalist id="texts">
+            <option v-for="task in tasks">{{task.text}}</option>
+          </datalist>
+        </div>
+
+    <div>
+      <button v-on:click="setAttribute('text')">Sort by Text</button>
+    </div>
+
+  <transition-group name="bounce">
+    <div v-for="task in sortedTasks" v-on:click="toggleComplete(task)" v-bind:class="{strike: task.complete}" v-if="isValidTask(task)" v-bind:key="task.id"> {{ task.text }}
+    </div>
+  </transition-group>
+    <button v-on:click="deleteCompleted()">Delete Completed Tasks</button>
+
 </div>
+
+<div>
+  Number of Tasks: {{tasks.length}}
+</div>
+
+<div>
+  Number of incomplete tasks: {{numberOfIncompleteTasks()}}
+</div>
+
 <div>
   Text: <input v-model="newTask.text">
     <button v-on:click="addTask()"> Add Task</button>
